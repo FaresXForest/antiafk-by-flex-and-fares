@@ -21,6 +21,67 @@
     - السكربت ده مش بيضمنلك إنك متتكشفش 100%، عشان بتوع الحماية دماغهم شغالة على طول.
     بس علي اقل هتعرف تصمل 150 ساعه منغير متتبند ولا اي حاجه  
 ----------------------------------------------------------------------------------]]
+-- Anti-AFK by فارس و فريق Fo
+local VirtualUser = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:Connect(function()
+   VirtualUser:Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+   task.wait(1)
+   VirtualUser:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+   print("تم منع الطرد AFK بنجاح بواسطة فارس و Fo")
+end)
+--[[
+    سكربت حماية شامل - من تطوير فارس و تيم Fo
+    يحتوي على: AntiAFK + AntiKick + AutoJump كل 15 دقيقة
+]]
+
+-- Anti-AFK
+task.spawn(function()
+    local vu = game:GetService("VirtualUser")
+    game:GetService("Players").LocalPlayer.Idled:Connect(function()
+        pcall(function()
+            vu:Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+            task.wait(1)
+            vu:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+        end)
+    end)
+end)
+
+-- Anti-Kick (hookfunction)
+local oldKick
+oldKick = hookfunction(game.Players.LocalPlayer.Kick, function(self, ...)
+    warn("تم اعتراض محاولة طرد - الحماية شغالة بواسطة فارس و Fo")
+    return nil
+end)
+
+-- Auto Jump كل 15 دقيقة
+task.spawn(function()
+    while true do
+        wait(900) -- 900 ثانية = 15 دقيقة
+        local char = game.Players.LocalPlayer.Character
+        if char and char:FindFirstChild("Humanoid") then
+            char.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            print("نطة تلقائية كل 15 دقيقة - بواسطة فارس و Fo")
+        end
+    end
+end)
+
+-- رسالة نجاح
+print("تم تفعيل: AntiAFK + AntiKick + AutoJump - من تطوير فارس و تيم Fo")
+
+
+
+-- شاشة التحميل local ScreenGui = Instance.new("ScreenGui", game.CoreGui) ScreenGui.ResetOnSpawn = false
+
+local Frame = Instance.new("Frame", ScreenGui) Frame.Size = UDim2.new(1, 0, 1, 0) Frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0) Frame.BorderSizePixel = 0
+
+local TextLabel = Instance.new("TextLabel", Frame) TextLabel.Size = UDim2.new(1, 0, 1, 0) TextLabel.BackgroundTransparency = 1 TextLabel.Text = [[ تم تحديث السكربت! دلوقتي تقدر تبقى AFK بأمان. السكربت كان فيه أخطاء بتطرد بعد 20 دقيقة. لكن دلوقتي المشكلة اتحلت، والسكربت شغال 100٪. انتظر 15 ثانية و ابدا صمله يمعلم
+
+فارس و تيم Fo ]] TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255) TextLabel.TextScaled = true TextLabel.Font = Enum.Font.SourceSansBold
+
+
+-- حذف الشاشة بعد 15 ثانية task.delay(15, function() ScreenGui:Destroy() end)
+
+
 
 -- خدمات روبلوكس الأساسية اللي هنحتاجها
 local UserInputService = game:GetService("UserInputService")
