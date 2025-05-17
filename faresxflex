@@ -68,28 +68,33 @@ end)
 -- رسالة نجاح
 print("تم تفعيل: AntiAFK + AntiKick + AutoJump - من تطوير فارس و تيم Fo")
 
--- شاشة تحميل
-local black = Instance.new("Frame", gui)
-black.Size = UDim2.new(1,0,1,0)
-black.BackgroundColor3 = Color3.new(0,0,0)
 
+
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local gui = Instance.new("ScreenGui")
+gui.Parent = playerGui
+
+-- شاشة سوداء صغيرة في المنتصف
+local black = Instance.new("Frame", gui)
+black.Size = UDim2.new(0.8, 0, 0.4, 0) -- أصغر من الشاشة
+black.Position = UDim2.new(0.1, 0, 0.3, 0)
+black.BackgroundColor3 = Color3.new(0, 0, 0)
+black.BorderSizePixel = 0
+
+-- نص التحميل
 local loadingText = Instance.new("TextLabel", black)
-loadingText.Size = UDim2.new(1,0,1,0)
+loadingText.Size = UDim2.new(1, 0, 1, 0)
 loadingText.BackgroundTransparency = 1
-loadingText.TextColor3 = Color3.new(0,1,0)
-loadingText.Text = "..
-تم تحديث السكربت!
-دلوقتي تقدر تبقى AFK بأمان.
-السكربت كان فيه أخطاء بتطرد بعد 20 دقيقة.
-لكن دلوقتي المشكلة اتحلت، والسكربت شغال 100٪.
-انتظر 15 ثانية وابدأ صمله يمعلم
-."
+loadingText.TextColor3 = Color3.new(0, 1, 0)
+loadingText.Text = "تم تحديث السكربت!\nدلوقتي تقدر تبقى AFK بأمان.\nالسكربت كان فيه أخطاء بتطرد بعد 20 دقيقة.\nلكن دلوقتي المشكلة اتحلت، والسكربت شغال 100٪.\n\nانتظر 15 ثانية وابدأ صمله يمعلم."
 loadingText.Font = Enum.Font.Code
 loadingText.TextScaled = true
+loadingText.TextWrapped = true
 
 wait(16)
-black:Destroy()
-
+gui:Destroy()
 
 
 -- خدمات روبلوكس الأساسية اللي هنحتاجها
